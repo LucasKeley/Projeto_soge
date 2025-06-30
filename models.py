@@ -43,17 +43,11 @@ class Sugestao(Base):
     """
     __tablename__ = "sugestoes" # Convenção: nome da tabela em minúsculas e no plural
 
-    STATUS_SUGESTAO = (
-    ("aberta", "Aberta"),
-    ("em_analise", "Em Análise"),
-    ("implementada", "Implementada"),
-    )
-
     id = Column("id", Integer, primary_key=True, autoincrement=True) # ID único da sugestão
     nome_colaborador = Column("nome_colaborador", ForeignKey("usuarios.id"))
     setor = Column("setor", String, nullable=False, index=True) # Setor da sugestão
     descricao = Column("descricao", String, nullable=False) # O texto detalhado da sugestão
-    status = Column("status", ChoiceType(STATUS_SUGESTAO), nullable=False) # Status da sugestão: 'aberta', 'em análise', 'implementada'
+    status = Column("status", String, nullable=False) # Status da sugestão: 'aberta', 'em análise', 'implementada'
     data_criacao = Column("data_criacao", DateTime, default=datetime.now) # Data e hora que a sugestão foi criada
 
     # Relacionamento: Uma sugestão pertence a um usuário
