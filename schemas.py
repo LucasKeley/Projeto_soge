@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 from enum import Enum
+from datetime import datetime
 
 class UsuarioSchema(BaseModel):
     nome_colaborador : str
@@ -17,15 +18,15 @@ class SugestaoSchema(BaseModel):
     setor: str
     descricao: str
     status: str  = "aberta"
+    data_criacao: datetime
+
     class Config:
         from_attributes = True
 
-# 1. Define os status permitidos de forma segura
 class StatusSugestao(str, Enum):
     aberta = "aberta"
     em_analise = "em análise"
     implementada = "implementada"
 
-# 2. Define o que a API espera receber no corpo da requisição
 class SugestaoStatusUpdateSchema(BaseModel):
     status: StatusSugestao

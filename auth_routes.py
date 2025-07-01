@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 auth_router = APIRouter(prefix="/auth", tags=["auth"])
 
+#1. Função da rota padrão
 @auth_router.get("/")
 async def home():
     """
@@ -14,6 +15,7 @@ async def home():
     """
     return {"mensagem": "Você acessou a rota padrão de autenticação", "autenticado": False}
 
+#2. Função de criação de conta
 @auth_router.post("/criar_conta")
 async def criar_conta(usuario_schema: UsuarioSchema, session: Session = Depends(pegar_sessao)):
     usuario = session.query(Usuario).filter(Usuario.email==usuario_schema.email).first()

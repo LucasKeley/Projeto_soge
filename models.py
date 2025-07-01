@@ -20,13 +20,12 @@ class Usuario(Base):
     """
     __tablename__ = "usuarios" # Convenção: nome da tabela em minúsculas e no plural
 
-    id = Column("id", Integer, primary_key=True, autoincrement=True) # ID único do usuário
-    nome_colaborador = Column("nome_colaborador", String, nullable=False, index=True) # Nome completo do colaborador
-    email = Column("email", String, unique=True, nullable=False, index=True) # E-mail do usuário (único)
-    senha = Column("senha", String, nullable=False) # Hash da senha do usuário (nunca armazene a senha pura!)
-    admin = Column("admin", Boolean, default=False, nullable=False) # Indica se o usuário tem privilégios de administrador
-    data_cadastro = Column("data_cadastro", DateTime, default=datetime.now) # Data de criação do registro do usuário
-
+    id = Column("id", Integer, primary_key=True, autoincrement=True)
+    nome_colaborador = Column("nome_colaborador", String, nullable=False, index=True)
+    email = Column("email", String, unique=True, nullable=False, index=True) 
+    senha = Column("senha", String, nullable=False) 
+    admin = Column("admin", Boolean, default=False, nullable=False) 
+    data_cadastro = Column("data_cadastro", DateTime, default=datetime.now) 
     # Relacionamento: Um usuário pode ter várias sugestões
     sugestoes = relationship("Sugestao", back_populates="usuario")
 
