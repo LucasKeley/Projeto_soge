@@ -1,9 +1,10 @@
-from sqlalchemy import create_engine, Column, String, Integer, Boolean, Float, ForeignKey, DateTime
+from sqlalchemy import create_engine, Column, String, Integer, Boolean, ForeignKey, DateTime
 from sqlalchemy.orm import declarative_base
 from datetime import datetime
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils.types import ChoiceType
+
 
 # Criação do banco de dados
 db = create_engine("sqlite:///database/banco.db")
@@ -22,17 +23,17 @@ class Usuario(Base):
     id = Column("id", Integer, primary_key=True, autoincrement=True) # ID único do usuário
     nome_colaborador = Column("nome_colaborador", String, nullable=False, index=True) # Nome completo do colaborador
     email = Column("email", String, unique=True, nullable=False, index=True) # E-mail do usuário (único)
-    senha_hash = Column("senha_hash", String, nullable=False) # Hash da senha do usuário (nunca armazene a senha pura!)
+    senha = Column("senha", String, nullable=False) # Hash da senha do usuário (nunca armazene a senha pura!)
     admin = Column("admin", Boolean, default=False, nullable=False) # Indica se o usuário tem privilégios de administrador
     data_cadastro = Column("data_cadastro", DateTime, default=datetime.now) # Data de criação do registro do usuário
 
     # Relacionamento: Um usuário pode ter várias sugestões
     sugestoes = relationship("Sugestao", back_populates="usuario")
 
-    def __init__(self, nome_colaborador, email, senha_hash, admin=False):
-        self.nome_cnome_colaborador =nome_colaborador
+    def __init__(self, nome_colaborador, email, senha, admin=False):
+        self.nome_colaborador = nome_colaborador
         self.email = email
-        self.senha_hash = senha_hash
+        self.senha = senha
         self.admin = admin 
 
 # --- 2. Classe para a Tabela de Sugestões ---
